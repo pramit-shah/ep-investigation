@@ -57,3 +57,4 @@ data/analysis/*.json
 tmp/
 *.tmp
 .github/workflows/*.yml
+!.github/workflows/bootstrap.yml
