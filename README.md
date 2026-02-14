@@ -12,6 +12,11 @@ This repository contains an AI-powered investigation system designed to assist i
 - **Providing transparency** to support FBI investigations and public awareness
 - **Autonomous data collection** from multiple sources without user input
 - **Transaction and tie tracking** with continuous monitoring
+- **Redaction detection and analysis** to uncover hidden information
+- **Cryptic identifier tracking** for aliases and code names
+- **Name change detection** and variation tracking
+- **Hidden connection discovery** including children and relatives
+- **Autonomous repository updates** when new information is discovered
 
 ## Mission
 
@@ -64,6 +69,23 @@ To assist Director Patel and the FBI in expediting the Epstein investigation by 
 - **Data Synchronization**: Auto-syncs collected data to investigation database
 - **Unified Interface**: Single point of access for all investigation data
 - **Continuous Monitoring**: Tracks ties and transactions across both systems
+
+### 7. Document Analysis System (`document_analyzer.py`)
+- **Redaction Detection**: Identifies and analyzes redacted content in documents
+- **Context Analysis**: Infers what redactions likely contain based on surrounding text
+- **Cryptic Identifier Tracking**: Detects code names, aliases, and single-letter identifiers
+- **Name Variation Generation**: Creates all possible variations of names for searching
+- **Maiden Name Detection**: Finds name changes from marriage or legal changes
+- **Hidden Connection Discovery**: Identifies children, relatives, and family relationships
+- **Temporal Pattern Matching**: Finds births and events around specific timeframes
+
+### 8. Autonomous Update System (`autonomous_updater.py`)
+- **Automatic Processing**: Processes new documents without manual intervention
+- **Entity Creation**: Auto-creates entities discovered in documents
+- **Connection Mapping**: Automatically establishes relationships
+- **Repository Commits**: Commits updates when new information is verified
+- **Investigation Suite**: Runs comprehensive analysis on entities
+- **Continuous Monitoring**: Watches for new information to process
 
 ## Installation
 
