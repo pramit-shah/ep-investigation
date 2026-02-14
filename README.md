@@ -10,6 +10,8 @@ This repository contains an AI-powered investigation system designed to assist i
 - **Building timelines** of events
 - **Connecting dots** through network analysis
 - **Providing transparency** to support FBI investigations and public awareness
+- **Autonomous data collection** from multiple sources without user input
+- **Transaction and tie tracking** with continuous monitoring
 
 ## Mission
 
@@ -18,6 +20,7 @@ To assist Director Patel and the FBI in expediting the Epstein investigation by 
 2. AI-powered analysis to identify patterns and relationships
 3. Public access to information to uncover hidden coverups
 4. Tools to bring all truth to light
+5. **Autonomous research system with one logic drift: Uncover all truths with continuous ties and transactions tracking**
 
 ## Features
 
@@ -46,6 +49,21 @@ To assist Director Patel and the FBI in expediting the Epstein investigation by 
 - **Quick Search**: Find entities and evidence instantly
 - **Entity Analysis**: Deep dive into connections and evidence
 - **Report Generation**: Export investigation summaries
+
+### 5. Autonomous Research System (`autonomous_researcher.py`)
+- **Autonomous Data Collection**: Collects data without user input
+- **Multi-Source Support**: Documents, videos, testimonies, DOJ files, flight logs, financial records
+- **ZIP Archive Management**: Stores collected data in verified .zip files with integrity checking
+- **Data Mapping**: Comprehensive map linking all resources, entities, and connections
+- **Transaction Tracking**: Monitors financial transactions between entities
+- **Tie Tracking**: Continuously tracks connections and relationships
+- **Priority-Based Research**: Automatically prioritizes critical data sources
+
+### 6. Integrated Investigation (`integrated_investigation.py`)
+- **System Integration**: Bridges autonomous research with manual investigation
+- **Data Synchronization**: Auto-syncs collected data to investigation database
+- **Unified Interface**: Single point of access for all investigation data
+- **Continuous Monitoring**: Tracks ties and transactions across both systems
 
 ## Installation
 
@@ -81,7 +99,17 @@ python3 cli.py
 python3 cli.py --summary
 ```
 
-3. **Run individual modules**:
+3. **Run autonomous research** (collects data automatically):
+```bash
+python3 autonomous_researcher.py
+```
+
+4. **Run integrated investigation** (autonomous + manual):
+```bash
+python3 integrated_investigation.py
+```
+
+5. **Run individual modules**:
 ```bash
 # Initialize database
 python3 investigation_system.py
@@ -312,4 +340,24 @@ python3 investigation_system.py
 
 # Run network analysis
 python3 network_analysis.py
+
+# Run autonomous research (NEW)
+python3 autonomous_researcher.py
+
+# Run integrated investigation (NEW)
+python3 integrated_investigation.py
 ```
+
+## Autonomous Research System
+
+The autonomous research system operates independently to:
+- Collect data from DOJ files, flight logs, testimonies, financial records, and media
+- Store all data in verified .zip archives
+- Create comprehensive data maps linking resources
+- Track financial transactions continuously
+- Monitor ties and connections between entities
+- Sync with manual investigation database
+
+**One Logic Drift: Uncover all truths with continuous ties and transactions tracking**
+
+See [AUTONOMOUS_RESEARCH.md](AUTONOMOUS_RESEARCH.md) for complete documentation.
