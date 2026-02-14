@@ -1,6 +1,14 @@
 # Epstein Investigation Repository
 
-⚠️ **CREATOR IDENTITY PROTECTED** - All investigation data sealed until authorized release
+## ⚠️ SECURITY NOTICE
+
+**🛡️ CREATOR IDENTITY PROTECTED** - This investigation uses anonymization to protect the creator from harm/retaliation
+
+**🔒 DATA SEALED UNTIL RELEASE** - All findings remain sealed until investigation is 95%+ complete and safety criteria are met
+
+See [SECURITY.md](SECURITY.md) for important security guidelines.
+
+---
 
 ## Overview
 
