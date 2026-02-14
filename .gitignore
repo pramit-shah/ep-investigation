@@ -56,3 +56,4 @@ data/analysis/*.json
 # Temporary files
 tmp/
 *.tmp
+.github/workflows/*.yml
