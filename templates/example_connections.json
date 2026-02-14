@@ -1,0 +1,31 @@
+{
+  "connections": [
+    {
+      "entity1": "Example Person A",
+      "entity2": "Example Person B",
+      "relationship": "business_partner",
+      "confidence": 0.95,
+      "evidence": "Description of evidence supporting this connection",
+      "source": "Source of this information",
+      "date_established": "YYYY-MM-DD"
+    },
+    {
+      "entity1": "Example Person",
+      "entity2": "Example Organization",
+      "relationship": "board_member",
+      "confidence": 1.0,
+      "evidence": "Public records showing board membership",
+      "source": "Organization's public filings",
+      "date_established": "YYYY-MM-DD"
+    },
+    {
+      "entity1": "Example Person",
+      "entity2": "Example Location",
+      "relationship": "owner",
+      "confidence": 0.9,
+      "evidence": "Property records",
+      "source": "County property records",
+      "date_established": "YYYY-MM-DD"
+    }
+  ]
+}

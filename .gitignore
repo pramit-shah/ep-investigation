@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (keep structure, ignore user data)
+data/investigation_data.json
+data/entities/*.json
+data/evidence/*.json
+data/connections/*.json
+data/collected/*.json
+data/reports/*.json
+data/analysis/*.json
+
+# But keep the directories and example files
+!data/.gitkeep
+!data/**/.gitkeep
+!data/**/example_*.json
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+*.tmp

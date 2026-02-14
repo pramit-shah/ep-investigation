@@ -1,0 +1,25 @@
+{
+  "title": "Example: Court Document Reference",
+  "source": "U.S. District Court, Southern District of New York",
+  "source_type": "document",
+  "date_of_occurrence": "2019-08-10",
+  "date_obtained": "2020-01-15T10:30:00",
+  "content": "Description of the document contents and relevant information. Include specific details, quotes, or summaries that are relevant to the investigation.",
+  "related_entities": [
+    "Jeffrey Epstein",
+    "Example Person",
+    "Example Organization"
+  ],
+  "tags": [
+    "legal",
+    "court_document",
+    "financial"
+  ],
+  "verification_notes": "Document verified through PACER system. Case number: XX-CR-XXXXX. Publicly available court record.",
+  "metadata": {
+    "case_number": "XX-CR-XXXXX",
+    "document_type": "Court Filing",
+    "url": "https://example.com/document",
+    "page_numbers": "1-5"
+  }
+}

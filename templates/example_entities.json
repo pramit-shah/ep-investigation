@@ -1,0 +1,31 @@
+{
+  "entities": [
+    {
+      "name": "Example Person",
+      "type": "person",
+      "metadata": {
+        "role": "Example role description",
+        "known_associations": "Brief description of known associations"
+      },
+      "tags": ["example", "individual"]
+    },
+    {
+      "name": "Example Organization",
+      "type": "organization",
+      "metadata": {
+        "type": "Foundation/Company/etc",
+        "location": "City, State/Country"
+      },
+      "tags": ["example", "organization"]
+    },
+    {
+      "name": "Example Location",
+      "type": "location",
+      "metadata": {
+        "address": "Full address if available",
+        "significance": "Why this location is relevant"
+      },
+      "tags": ["example", "location", "property"]
+    }
+  ]
+}
