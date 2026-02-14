@@ -1,0 +1,29 @@
+{
+  "sources": {},
+  "entity_sources": {},
+  "topic_sources": {},
+  "transactions": [
+    {
+      "from": "Test Entity A",
+      "to": "Test Entity B",
+      "type": "test_payment",
+      "amount": 1000.0,
+      "date": null,
+      "source_id": null,
+      "recorded": "2026-02-14T01:48:10.750564"
+    }
+  ],
+  "ties": [
+    {
+      "entity1": "Test Entity A",
+      "entity2": "Test Entity C",
+      "type": "test_associate",
+      "description": "Test description",
+      "source_id": null,
+      "recorded": "2026-02-14T01:48:10.751037"
+    }
+  ],
+  "last_updated": "2026-02-14T01:48:10.751065",
+  "total_sources": 0,
+  "collected_sources": 0
+}

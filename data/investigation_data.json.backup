@@ -1,0 +1,21 @@
+{
+  "entities": {
+    "Jeffrey Epstein": {
+      "name": "Jeffrey Epstein",
+      "type": "person",
+      "metadata": {
+        "role": "Primary Subject",
+        "status": "Deceased",
+        "date_of_death": "2019-08-10"
+      },
+      "connections": [],
+      "evidence_ids": [],
+      "tags": [
+        "deceased",
+        "primary_subject"
+      ]
+    }
+  },
+  "evidence": {},
+  "last_updated": "2026-02-14T01:42:06.367012"
+}

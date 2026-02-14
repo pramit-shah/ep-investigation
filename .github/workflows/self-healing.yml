@@ -1,0 +1,197 @@
+name: Self-Healing System
+
+on:
+  schedule:
+    # Run every 2 hours to check system health
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Continuous Investigation System"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "Self-Healing Bot"
+          git config --global user.email "self-healing-bot@users.noreply.github.com"
+      
+      - name: Run System Health Check
+        id: health
+        continue-on-error: true
+        run: |
+          echo "Running health diagnostics..."
+          
+          # Check if all Python files are valid
+          echo "Checking Python syntax..."
+          for file in *.py; do
+            if [ -f "$file" ]; then
+              python3 -m py_compile "$file" || echo "SYNTAX_ERROR: $file" >> health_issues.txt
+            fi
+          done
+          
+          # Check data integrity
+          echo "Checking data integrity..."
+          if [ -f "data/investigation_data.json" ]; then
+            python3 -c "import json; json.load(open('data/investigation_data.json'))" || echo "DATA_CORRUPTION: investigation_data.json" >> health_issues.txt
+          fi
+          
+          # Check if required directories exist
+          echo "Checking directory structure..."
+          for dir in data data/entities data/evidence data/connections data/reports; do
+            if [ ! -d "$dir" ]; then
+              echo "MISSING_DIR: $dir" >> health_issues.txt
+            fi
+          done
+          
+          if [ -f "health_issues.txt" ]; then
+            echo "has_issues=true" >> $GITHUB_OUTPUT
+            cat health_issues.txt
+          else
+            echo "has_issues=false" >> $GITHUB_OUTPUT
+            echo "✓ System health check passed"
+          fi
+      
+      - name: Auto-Fix Issues
+        if: steps.health.outputs.has_issues == 'true'
+        run: |
+          echo "Attempting to auto-fix detected issues..."
+          
+          # Recreate directory structure if missing
+          python3 -c "
+          import os
+          dirs = ['data', 'data/entities', 'data/evidence', 'data/connections', 
+                  'data/reports', 'data/timeline', 'data/analysis', 'data/collected']
+          for d in dirs:
+              os.makedirs(d, exist_ok=True)
+          print('✓ Directory structure restored')
+          "
+          
+          # Reinitialize database if corrupted
+          if grep -q "DATA_CORRUPTION" health_issues.txt 2>/dev/null; then
+            echo "Reinitializing corrupted database..."
+            python3 setup.py
+          fi
+          
+          echo "✓ Auto-fix completed"
+      
+      - name: Run System Tests
+        id: tests
+        continue-on-error: true
+        run: |
+          echo "Running system tests..."
+          
+          # Test core modules
+          test_passed=0
+          test_failed=0
+          
+          for test_file in test_*.py; do
+            if [ -f "$test_file" ]; then
+              echo "Running $test_file..."
+              if python3 "$test_file"; then
+                ((test_passed++))
+              else
+                ((test_failed++))
+                echo "TEST_FAILED: $test_file" >> test_failures.txt
+              fi
+            fi
+          done
+          
+          echo "Tests passed: $test_passed"
+          echo "Tests failed: $test_failed"
+          echo "test_passed=$test_passed" >> $GITHUB_OUTPUT
+          echo "test_failed=$test_failed" >> $GITHUB_OUTPUT
+      
+      - name: Commit Fixes
+        if: steps.health.outputs.has_issues == 'true'
+        run: |
+          git add -A
+          if ! git diff --staged --quiet; then
+            timestamp=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+            git commit -m "🔧 Self-Healing: Auto-fixed system issues - $timestamp
+
+            Issues detected and resolved:
+            $(cat health_issues.txt 2>/dev/null || echo 'See workflow logs')
+            
+            Tests: ${{ steps.tests.outputs.test_passed || 0 }} passed, ${{ steps.tests.outputs.test_failed || 0 }} failed
+            
+            Auto-committed by self-healing system"
+            
+            git push origin HEAD:${{ github.ref_name }}
+            echo "✓ Fixes committed and pushed"
+          fi
+      
+      - name: Create Issue for Critical Failures
+        if: steps.tests.outputs.test_failed > 5
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const timestamp = new Date().toISOString();
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Critical System Failure Detected - ${timestamp}`,
+              body: `## Self-Healing System Alert
+              
+              **Timestamp:** ${timestamp}
+              **Tests Failed:** ${{ steps.tests.outputs.test_failed }}
+              **Tests Passed:** ${{ steps.tests.outputs.test_passed }}
+              
+              The self-healing system detected critical failures that require manual intervention.
+              
+              **Action Required:**
+              1. Review the workflow logs
+              2. Check test_failures.txt for details
+              3. Manually fix critical issues
+              
+              **Workflow Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+              `,
+              labels: ['critical', 'auto-generated', 'self-healing']
+            });
+      
+      - name: Health Report Summary
+        if: always()
+        run: |
+          echo "## Self-Healing System Report" > healing_report.md
+          echo "**Timestamp:** $(date -u)" >> healing_report.md
+          echo "" >> healing_report.md
+          echo "### Health Status" >> healing_report.md
+          echo "- Issues Detected: ${{ steps.health.outputs.has_issues || 'none' }}" >> healing_report.md
+          echo "- Tests Passed: ${{ steps.tests.outputs.test_passed || 'N/A' }}" >> healing_report.md
+          echo "- Tests Failed: ${{ steps.tests.outputs.test_failed || 'N/A' }}" >> healing_report.md
+          echo "" >> healing_report.md
+          
+          if [ -f "health_issues.txt" ]; then
+            echo "### Issues Found" >> healing_report.md
+            cat health_issues.txt >> healing_report.md
+          fi
+          
+          cat healing_report.md
+      
+      - name: Upload Health Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: health-report-${{ github.run_number }}
+          path: healing_report.md
+          retention-days: 30
