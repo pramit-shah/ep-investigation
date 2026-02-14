@@ -1,0 +1,34 @@
+name: Start Investigation
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Deploy and Run Investigation
+        run: |
+          git config --global user.name "Investigation Bot"
+          git config --global user.email "bot@investigation.local"
+          
+          python3 setup.py
+          python3 deploy_workflows.py
+          
+          git add .github/workflows/continuous-investigation.yml .github/workflows/self-healing.yml
+          git commit -m "🤖 Auto-deploy investigation workflows" || true
+          git push || true
+          
+          python3 run_autonomous_cycle.py --research-duration 5 --orchestration-duration 5 --tasks-duration 5
+          
+          echo "✅ Investigation system deployed and running!"

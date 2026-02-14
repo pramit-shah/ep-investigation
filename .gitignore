@@ -44,6 +44,8 @@ data/connections/*.json
 data/collected/*.json
 data/reports/*.json
 data/analysis/*.json
+data/cycle_log.json
+data/recovery_log.json
 
 # But keep the directories and example files
 !data/.gitkeep
@@ -58,3 +60,4 @@ tmp/
 *.tmp
 .github/workflows/*.yml
 !.github/workflows/bootstrap.yml
+!.github/workflows/start-investigation.yml
