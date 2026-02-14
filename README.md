@@ -849,3 +849,109 @@ content = flyer_sys.decrypt_flyer(flyer['id'])
 - ✅ No metadata leakage
 
 See [MASSIVE_SYSTEMS.md](MASSIVE_SYSTEMS.md) for complete documentation.
+## 16. Continuous Task System with Swarm Agents
+
+Break down complex tasks using WH-questions and distribute to swarms of parallel agents for faster completion.
+
+### WH-Question Decomposition
+
+Automatically breaks down tasks into 7 fundamental questions:
+
+```python
+from continuous_task_system import WHQuestionDecomposer
+
+decomposer = WHQuestionDecomposer()
+subtasks = decomposer.decompose_task(
+    "Investigate financial transactions",
+    context="Money laundering case"
+)
+
+for subtask in subtasks:
+    print(f"{subtask.wh_type}: {subtask.description}")
+    # WHAT: What transactions occurred?
+    # WHO: Who was involved?
+    # WHEN: When did they happen?
+    # WHERE: Where were they processed?
+    # WHY: Why were they made?
+    # HOW: How were they executed?
+    # WHICH: Which accounts/banks?
+```
+
+### Swarm Agent Execution
+
+Distribute work to multiple parallel agents for 2-7x speedup:
+
+```python
+from continuous_task_system import SwarmOrchestrator
+
+orchestrator = SwarmOrchestrator(num_agents=7)
+results = orchestrator.execute_task_swarm(
+    task_description="Analyze 500 documents",
+    subtasks=subtasks,
+    parallel=True
+)
+
+print(f"Speedup: {results['speedup']:.1f}x")  # ~5.5x with 7 agents
+```
+
+### Continuous Background Tasks
+
+Schedule tasks to run continuously in background:
+
+```python
+from continuous_task_system import ContinuousTaskScheduler
+
+scheduler = ContinuousTaskScheduler()
+
+# Recurring task
+scheduler.schedule_task(
+    task_id="daily_scrape",
+    description="Scrape news sources",
+    priority="HIGH",
+    interval_hours=24,
+    task_type="recurring"
+)
+
+# Continuous monitoring
+scheduler.schedule_task(
+    task_id="monitor",
+    description="Monitor file changes",
+    priority="CRITICAL",
+    task_type="continuous"
+)
+
+scheduler.start()
+```
+
+### Complete Integration
+
+Use the complete system for continuous investigation:
+
+```python
+from continuous_task_system import ContinuousTaskSystem
+
+system = ContinuousTaskSystem(num_agents=7, max_parallel_jobs=5)
+
+log = system.start_continuous_investigation(
+    investigation_goal="Uncover all connections",
+    focus_areas=["transactions", "entities"],
+    max_duration_hours=24
+)
+
+# Monitor progress
+status = system.get_system_status()
+print(f"Active jobs: {status['active_jobs']}")
+print(f"Completed: {status['completed_tasks']}")
+```
+
+**Features:**
+- ✅ WH-question decomposition (7 types)
+- ✅ Swarm agents (3-10 configurable)
+- ✅ 2-7x speedup with parallel execution
+- ✅ Continuous 24/7 background operation
+- ✅ Priority-based scheduling
+- ✅ Auto-restart on failure
+
+See [CONTINUOUS_TASKS.md](CONTINUOUS_TASKS.md) for complete documentation.
+
+---
